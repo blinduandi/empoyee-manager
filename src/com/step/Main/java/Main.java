@@ -24,6 +24,7 @@ public class Main {
 
         EmployeeDataManager dataManager = new EmployeeDataManager();
 
+        Employee empl = new Employee();
 
 
 
@@ -32,13 +33,13 @@ while (true) {
     switch (sc.next().charAt(0)) {
 
         case 49: {
-            dataManager.show(0);
+            dataManager.show();
 
         }
         break;
         case 50: {
 
-            
+                empl.create();
 
         }
             break;

@@ -14,7 +14,7 @@ public class EmployeeDataManager {
     public static int nrOfEmployee=0;
     public static List<Employee> employee = new ArrayList<Employee>();
 
-    public void show( int index)
+    public void show( )
     {
 
 

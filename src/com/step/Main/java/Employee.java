@@ -20,6 +20,11 @@ public class Employee {
     public static String function;
 
 
+    Employee()
+    {
+
+    }
+
     Employee(String _name, String _surname, LocalDate _birthday, String _gender, int _idnp, int _salary , String _function)
     {
         name=_name;
