@@ -1,7 +1,5 @@
-package com.step.Main.java;
+package com.step.examen;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -24,7 +22,6 @@ public class Main {
 
         EmployeeDataManager dataManager = new EmployeeDataManager();
 
-        Employee empl = new Employee();
 
 
 
@@ -39,12 +36,12 @@ while (true) {
         break;
         case 50: {
 
-                empl.create();
+                dataManager.create();
 
         }
             break;
-//            case 51: employee.edit();break;
-//            case 52: employee.fire();break;
+           case 51: dataManager.update();break;
+            case 52: dataManager.delete();break;
         case 53:
             System.exit(0);
             break;
