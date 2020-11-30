@@ -8,13 +8,13 @@ public class Employee {
 
 
 
-    public static String name;
-    public static String surname;
-    public static LocalDate birthday;
-    public static String gender;
-    public static int idnp;
-    public static int salary;
-    public static String function;
+     String name;
+     String surname;
+     LocalDate birthday;
+     String gender;
+     int idnp;
+     int salary;
+     String function;
 
 
 
@@ -31,6 +31,32 @@ public class Employee {
     }
 
 
+    public String getName(){
+        return name;
+    }
 
+    public String getSurname(){
+        return surname;
+    }
+
+    public LocalDate getBirthday(){
+        return birthday;
+    }
+
+    public String getGender(){
+        return gender;
+    }
+
+    public int getIDNP(){
+        return idnp;
+    }
+
+    public int getSalary(){
+        return salary;
+    }
+
+    public String getFunction(){
+        return function;
+    }
 
 }

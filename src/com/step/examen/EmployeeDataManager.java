@@ -1,45 +1,39 @@
 package com.step.examen;
 
+import java.io.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeeDataManager {
 
-    public static int nrOfEmployee=0;
-    private ArrayList<Employee> employee = new ArrayList<Employee>();
+    public static int nrOfEmployee = 0;
+    private List<Employee> employe = new ArrayList<>();
 
 
-    public void show( )
-    {
+    public void show() {
 
 
+        for (int i = 0; i < employe.size(); i++) {
 
-
-
-            for (int i = 0; i < employee.size(); i++) {
-
-                System.out.println("\n\n\n*******************************************");
-                System.out.println("/t/t/tAngajatul " + (i + 1));
-                System.out.println("Name [" + (i + 1) + "]: " + employee.get(i).name);
-                System.out.println("Surname [" + (i + 1) + "]: " + employee.get(i).surname);
-                System.out.println("Birthday [" + (i + 1) + "]: " + employee.get(i).birthday);
-                System.out.println("Gender [" + (i + 1) + "]: " + employee.get(i).gender);
-                System.out.println("IDNP [" + (i + 1) + "]: " + employee.get(i).idnp);
-                System.out.println("Salary [" + (i + 1) + "]: " + employee.get(i).salary);
-                System.out.println("Function [" + (i + 1) + "]: " + employee.get(i).function);
-                System.out.println("\n\n\n*******************************************");
-
-            }
-
+            System.out.println("\n\n\n*******************************************");
+            System.out.println("/t/t/tAngajatul " + (i + 1));
+            System.out.println("Name [" + (i + 1) + "]: " + employe.get(i).getName());
+            System.out.println("Surname [" + (i + 1) + "]: " + employe.get(i).getSurname());
+            System.out.println("Birthday [" + (i + 1) + "]: " + employe.get(i).getBirthday());
+            System.out.println("Gender [" + (i + 1) + "]: " + employe.get(i).getGender());
+            System.out.println("IDNP [" + (i + 1) + "]: " + employe.get(i).getIDNP());
+            System.out.println("Salary [" + (i + 1) + "]: " + employe.get(i).getSalary());
+            System.out.println("Function [" + (i + 1) + "]: " + employe.get(i).getFunction());
+            System.out.println("\n\n\n*******************************************");
 
         }
 
 
-    public void create( )
-    {
+    }
+
+
+    public void create() {
 
         String _name;
         String _surname;
@@ -55,145 +49,249 @@ public class EmployeeDataManager {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n\n\n*******************************************");
         System.out.println("Enter name:");
-        _name=sc.nextLine();
+        _name = sc.nextLine();
 
         System.out.println("Enter surname:");
-        _surname=sc.nextLine();
+        _surname = sc.nextLine();
 
         System.out.println("Enter year of birdth:");
-        _year=sc.nextInt();
+        _year = sc.nextInt();
         System.out.println("Enter mounth of birdth:");
-        _mounth=sc.nextInt();
+        _mounth = sc.nextInt();
         System.out.println("Enter day of birdth:");
-        _day=sc.nextInt();
+        _day = sc.nextInt();
 
 
         System.out.println("Enter gender:");
-        _gender=sc.next();
+        _gender = sc.next();
 
         System.out.println("Enter IDNP:");
-        _idnp=sc.nextInt();
+        _idnp = sc.nextInt();
 
         System.out.println("Enter salary:");
-        _salary=sc.nextInt();
+        _salary = sc.nextInt();
 
         System.out.println("Enter function:");
-        _function=sc.next();
+        _function = sc.next();
 
         System.out.println("\n\n\n*******************************************");
 
-        employee.add(new Employee(_name,_surname, LocalDate.of (_year,_mounth,_day),_gender,_idnp,_salary,_function));
+        employe.add( nrOfEmployee,new Employee(_name, _surname, LocalDate.of(_year, _mounth, _day), _gender, _idnp, _salary, _function));
+
+
         nrOfEmployee++;
     }
 
 
+    public void update() {
 
+        show();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introdu nr. angajatului pentru care doresti sa il editezi: ");
 
+        int editempl = sc.nextInt();
+        String _name = employe.get(editempl - 1).name;
+        String _surname = employe.get(editempl - 1).surname;
+        int _mounth = employe.get(editempl - 1).birthday.getMonthValue();
+        int _year = employe.get(editempl - 1).birthday.getYear();
+        int _day = employe.get(editempl - 1).birthday.getDayOfMonth();
+        String _gender = employe.get(editempl - 1).gender;
+        int _idnp = employe.get(editempl - 1).idnp;
+        int _salary = employe.get(editempl - 1).salary;
+        String _function = employe.get(editempl - 1).function;
 
-             public void update()
-             {
+        System.out.println("\t\t\t******Edit******");
+        System.out.println("\t\t 1. Edit name");
+        System.out.println("\t\t 2. Edit surname");
+        System.out.println("\t\t 3. Edit birthday");
+        System.out.println("\t\t 4. Edit gender");
+        System.out.println("\t\t 5. Edit IDNP");
+        System.out.println("\t\t 6. Edit salary");
+        System.out.println("\t\t 7. Edit function");
+        System.out.println("\t\t 8. SAVE AND EXIT");
+        System.out.println("\n\n\t\t\t\t Be careful the program will not detect other entries!");
 
-                 show();
-                 Scanner sc = new Scanner(System.in);
-                 System.out.println("Introdu nr. angajatului pentru care doresti sa il editezi: ");
+        while (true) {
+            switch (sc.next().charAt(0)) {
 
-                 int editempl=sc.nextInt();
-                 String _name=employee.get(editempl-1).name;
-                 String _surname=employee.get(editempl-1).surname;
-                 int _mounth=employee.get(editempl-1).birthday.getMonthValue();
-                 int _year=employee.get(editempl-1).birthday.getYear();
-                 int _day=employee.get(editempl-1).birthday.getDayOfMonth();
-                 String _gender=employee.get(editempl-1).gender;
-                 int _idnp=employee.get(editempl-1).idnp;
-                 int _salary=employee.get(editempl-1).salary;
-                 String _function=employee.get(editempl-1).function;
+                case 49: {
+                    System.out.println("Enter name:");
+                    _name = sc.next();
+                    System.out.println("Name has been edited!");
 
-                 System.out.println("\t\t\t******Edit******");
-                 System.out.println("\t\t 1. Edit name");
-                 System.out.println("\t\t 2. Edit surname");
-                 System.out.println("\t\t 3. Edit birthday");
-                 System.out.println("\t\t 4. Edit gender");
-                 System.out.println("\t\t 5. Edit IDNP");
-                 System.out.println("\t\t 6. Edit salary");
-                 System.out.println("\t\t 7. Edit function");
-                 System.out.println("\t\t 8. SAVE AND EXIT");
-                 System.out.println("\n\n\t\t\t\t Be careful the program will not detect other entries!");
+                }
+                break;
+                case 50: {
+                    System.out.println("Enter surname:");
+                    _surname = sc.nextLine();
+                    System.out.println("Surname has been edited!");
+                }
 
-while (true) {
-    switch (sc.next().charAt(0)) {
+                break;
+                case 51: {
+                    System.out.println("Enter year of birdth:");
+                    _year = sc.nextInt();
+                    System.out.println("Enter mounth of birdth:");
+                    _mounth = sc.nextInt();
+                    System.out.println("Enter day of birdth:");
+                    _day = sc.nextInt();
+                    System.out.println("Birthday has been edited!");
+                }
 
-        case 49: {
-            System.out.println("Enter name:");
-            _name=sc.nextLine();
+                break;
+                case 52: {
+                    System.out.println("Enter gender:");
+                    _gender = sc.next();
+                    System.out.println("Gender has been edited!");
+                }
 
+                break;
+                case 53: {
+                    System.out.println("Enter IDNP:");
+                    _idnp = sc.nextInt();
+                    System.out.println("IDNP has been edited!");
+                }
+
+                break;
+                case 54: {
+                    System.out.println("Enter salary:");
+                    _salary = sc.nextInt();
+                    System.out.println("Salary has been edited!");
+                }
+
+                break;
+                case 55: {
+                    System.out.println("Enter function:");
+                    _function = sc.next();
+                    System.out.println("Function has been edited!");
+                }
+
+                break;
+                case 56: {
+                    employe.add(editempl - 1, new Employee(_name, _surname, LocalDate.of(_year, _mounth, _day), _gender, _idnp, _salary, _function));
+                    employe.remove(editempl);
+                    nrOfEmployee++;
+                    System.out.println("ALL has been saved!");
+
+                }
+                return;
+
+            }
         }
-        
-        break;
-        case 50: {
-            System.out.println("Enter surname:");
-            _surname=sc.nextLine();
-        }
-
-        break;
-        case 51: {
-            System.out.println("Enter year of birdth:");
-            _year=sc.nextInt();
-            System.out.println("Enter mounth of birdth:");
-            _mounth=sc.nextInt();
-            System.out.println("Enter day of birdth:");
-            _day=sc.nextInt();
-        }
-
-        break;
-        case 52: {
-            System.out.println("Enter gender:");
-            _gender=sc.next();
-        }
-
-        break;
-        case 53: {
-            System.out.println("Enter IDNP:");
-            _idnp=sc.nextInt();
-        }
-
-        break;
-        case 54: {
-            System.out.println("Enter salary:");
-            _salary=sc.nextInt();
-        }
-
-        break;
-        case 55: {
-            System.out.println("Enter function:");
-            _function=sc.next();
-        }
-
-        break;
-        case 56: {
-            employee.add(editempl-1, new Employee(_name,_surname, LocalDate.of (_year,_mounth,_day),_gender,_idnp,_salary,_function));
-            employee.remove(editempl);
-            nrOfEmployee++;
-
-        }return;
 
     }
-}
-
-             }
 
 
-             public void delete()
-             {
+    public void delete() {
 
-                 show();
-                 Scanner sc = new Scanner(System.in);
-                 System.out.println("Introdu nr. angajatului pentru al concedia: ");
-                 int delempl=sc.nextInt();
+        show();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introdu nr. angajatului pentru al concedia: ");
+        int delempl = sc.nextInt();
 
-                 employee.remove(delempl-1);
-                 System.out.println("Angajatul "+delempl+" a fost concediat!");
+        employe.remove(delempl - 1);
+        System.out.println("Angajatul " + delempl + " a fost concediat!");
 
-             }
+    }
+
+
+    public void save() {
+
+
+        try {
+
+            FileWriter csvWriter = new FileWriter("save.csv");
+
+
+            for (int i=0;i<employe.size();i++) {
+                csvWriter.append(employe.get(i).getName());
+                csvWriter.append(",");
+                csvWriter.append(employe.get(i).getSurname());
+                csvWriter.append(",");
+                csvWriter.append(employe.get(i).getBirthday().toString());
+                csvWriter.append(",");
+                csvWriter.append(employe.get(i).getGender());
+                csvWriter.append(",");
+                csvWriter.append(Integer.toString(employe.get(i).getIDNP()));
+                csvWriter.append(",");
+                csvWriter.append(Integer.toString(employe.get(i).getSalary()));
+                csvWriter.append(",");
+                csvWriter.append(employe.get(i).getFunction());
+
+                csvWriter.append("\n");
+            }
+
+            csvWriter.flush();
+            csvWriter.close();
+
+
+            System.out.println("Successfully saved.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+    }
+
+    public void saveDB(){
+
+
+    }
+
+
+
+    public void loadLocal(){
+
+//        try {
+//            Scanner myReader = new Scanner(new File("save.csv"));
+//
+//            while (myReader.hasNextLine()) {
+//                employe.add( nrOfEmployee,new Employee(myReader.nextLine(),myReader.nextLine(), LocalDate.of(myReader.nextInt(), myReader.nextInt(), myReader.nextInt()), myReader.nextLine(), myReader.nextInt(), myReader.nextInt(),myReader.nextLine()));
+//                System.out.println();
+//            }
+//            myReader.close();
+//            System.out.println("Successfully loaded.");
+//        } catch () {
+//            System.out.println("An error occurred.");
+//            e.printStackTrace();
+//        }
+
+
+            // Create an object of filereader
+            // class with CSV file as a parameter.
+
+
+            // create csvReader object passing
+            // file reader as a parameter
+
+
+
+        Scanner sc = new Scanner("save.csv");
+
+        try{
+            while (sc.hasNext()){
+                System.out.println(sc.hasNext());
+                String[] values = sc.delimiter().split(",");
+                System.out.println();
+                sc.next();
+            }
+
+
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+    public void loadDB(){
+
+    }
+
 
 
 }

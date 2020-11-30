@@ -8,7 +8,30 @@ public class Main {
 
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
+        EmployeeDataManager dataManager = new EmployeeDataManager();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\t\t\t******MENU******");
+        System.out.println("\t\t 1. Load local");
+        System.out.println("\t\t 2. Load from data base");
+
+
+        switch (sc.next().charAt(0)) {
+
+            case 49: {
+                dataManager.loadLocal();
+
+            }
+            break;
+            case 50: {
+
+                dataManager.loadDB();
+
+            }break;
+        }
+
+
+
 
         System.out.println("\t\t\t******MENU******");
         System.out.println("\t\t 1. Show employee");
@@ -18,37 +41,40 @@ public class Main {
         System.out.println("\t\t 5. EXIT");
         System.out.println("\n\n\t\t\t\t Be careful the program will not detect other entries!");
 
-        Scanner sc = new Scanner(System.in);
-
-        EmployeeDataManager dataManager = new EmployeeDataManager();
 
 
 
 
 
-while (true) {
-    switch (sc.next().charAt(0)) {
+        while (true) {
+            switch (sc.next().charAt(0)) {
 
-        case 49: {
-            dataManager.show();
+                case 49: {
+                    dataManager.show();
+
+                }
+                break;
+                case 50: {
+
+                    dataManager.create();
+
+                }
+                break;
+                case 51:
+                    dataManager.update();
+                    break;
+                case 52:
+                    dataManager.delete();
+                    break;
+                case 53: {
+                    dataManager.save();
+                    System.exit(0);
+                    }
+                break;
+
+
+            }
 
         }
-        break;
-        case 50: {
 
-                dataManager.create();
-
-        }
-            break;
-           case 51: dataManager.update();break;
-            case 52: dataManager.delete();break;
-        case 53:
-            System.exit(0);
-            break;
-
-    }
-
-}
-
-    }
-}
+    }}
