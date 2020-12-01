@@ -1,7 +1,7 @@
 package com.step.examen;
 
 import java.io.*;
-import java.lang.reflect.Array;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -208,7 +208,11 @@ public class EmployeeDataManager {
                 csvWriter.append(",");
                 csvWriter.append(employe.get(i).getSurname());
                 csvWriter.append(",");
-                csvWriter.append(employe.get(i).getBirthday().toString());
+                csvWriter.append(String.valueOf(employe.get(i).getBirthday().getYear()));
+                csvWriter.append(",");
+                csvWriter.append(String.valueOf(employe.get(i).getBirthday().getMonthValue()));
+                csvWriter.append(",");
+                csvWriter.append(String.valueOf(employe.get(i).getBirthday().getDayOfMonth()));
                 csvWriter.append(",");
                 csvWriter.append(employe.get(i).getGender());
                 csvWriter.append(",");
@@ -242,40 +246,84 @@ public class EmployeeDataManager {
 
     public void loadLocal(){
 
-//        try {
-//            Scanner myReader = new Scanner(new File("save.csv"));
-//
-//            while (myReader.hasNextLine()) {
-//                employe.add( nrOfEmployee,new Employee(myReader.nextLine(),myReader.nextLine(), LocalDate.of(myReader.nextInt(), myReader.nextInt(), myReader.nextInt()), myReader.nextLine(), myReader.nextInt(), myReader.nextInt(),myReader.nextLine()));
-//                System.out.println();
-//            }
-//            myReader.close();
-//            System.out.println("Successfully loaded.");
-//        } catch () {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        }
-
-
-            // Create an object of filereader
-            // class with CSV file as a parameter.
-
-
-            // create csvReader object passing
-            // file reader as a parameter
-
-
-
-        Scanner sc = new Scanner("save.csv");
 
         try{
-            while (sc.hasNext()){
-                System.out.println(sc.hasNext());
-                String[] values = sc.delimiter().split(",");
-                System.out.println();
-                sc.next();
-            }
+            BufferedReader br = new BufferedReader(new FileReader("save.csv"));
+            String line;
 
+            while ((line=br.readLine())!=null){
+
+
+                String[] values= line.split(",");
+                int kontor=0;
+                String name = null;
+                String surname = null;
+                String gender = null;
+                int year=1;
+                int month=1;
+                int day=1;
+                int idnp = 0;
+                int salary=0;
+                String function = null;
+
+
+                for(int i=0;i<values.length;i++) {
+
+                    switch(kontor)
+                    {
+                        case 0 :{
+                            name = values[i];
+                            kontor++;
+                        }break;
+                        case 1 :{
+                            surname = values[i];
+                            kontor++;
+                        }break;
+                        case 2 :{
+                            year = Integer.parseInt(values[i]);
+                            kontor++;
+                        }break;
+                        case 3 :{
+                            month = Integer.parseInt(values[i]);
+                            kontor++;
+                        }break;
+                        case 4 :{
+                            day = Integer.parseInt(values[i]);
+                            kontor++;
+                        }break;
+                        case 5 :{
+                            gender = values[i];
+                            kontor++;
+                        }break;
+                        case 6 :{
+                            idnp = Integer.parseInt(values[i]);
+                            kontor++;
+                        }break;
+                        case 7 :{
+                        salary = Integer.parseInt(values[i]);
+                        kontor++;
+                    }break;
+                        case 8 :{
+                            function = values[i];
+                            kontor=0;
+                        }break;
+
+                    }
+
+
+
+                 }
+
+                employe.add( new Employee(name, surname, LocalDate.of(year,month,day) , gender, idnp, salary, function));
+
+
+
+
+
+
+
+            }
+            br.close();
 
         }
 
