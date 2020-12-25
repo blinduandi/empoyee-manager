@@ -2,6 +2,11 @@ package com.step.examen;
 
 import java.io.*;
 
+import java.nio.channels.ConnectionPendingException;
+import java.rmi.ConnectException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -182,6 +187,8 @@ public class EmployeeDataManager {
     }
 
 
+
+
     public void delete() {
 
         show();
@@ -337,6 +344,19 @@ public class EmployeeDataManager {
     }
 
     public void loadDB(){
+        try {
+
+
+            String url = "jdbc:postgresql://localhost:53740/EmployeeManager";
+            String username = "postgres";
+            String password = "ORA";
+
+            Connection conn = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected!");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
