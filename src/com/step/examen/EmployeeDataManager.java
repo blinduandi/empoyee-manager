@@ -4,11 +4,10 @@ import java.io.*;
 
 import java.nio.channels.ConnectionPendingException;
 import java.rmi.ConnectException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.TimeoutException;
 
 public class EmployeeDataManager {
 
@@ -344,19 +343,83 @@ public class EmployeeDataManager {
     }
 
     public void loadDB(){
+        String _name;
+        String _surname;
+        int _mounth;
+        int _year;
+        int _day;
+        String _gender;
+        int _idnp;
+        int _salary;
+        String _function;
+
+
         try {
 
 
-            String url = "jdbc:postgresql://localhost:53740/EmployeeManager";
+            String url = "jdbc:postgresql://localhost:5432/EmployeeManager";
             String username = "postgres";
             String password = "ORA";
-
             Connection conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Connected!");
+
+            String sql = "" +
+                    "SELECT * " +
+                    "FROM employe " +
+                    "";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            ResultSet result = statement.executeQuery();
+
+
+            result.next();
+         _name =  result.getString("name");
+         _surname = result.getString("surname");
+         _gender = result.getString("gender");
+         _idnp = Integer.parseInt(result.getString("idnp"));
+         _salary = Integer.parseInt(result.getString("salary"));
+         _function=result.getString("function");
+
+         System.out.println("a1");
+
+         result.close();
+            String sql2 = "" +
+                    "SELECT  extract(day from birthday) as day" +
+                    "FROM employe " +
+                    "";
+            PreparedStatement statement2 = conn.prepareStatement(sql2);
+            ResultSet result2 = statement2.executeQuery();
+            _day=Integer.parseInt(result2.getString("day"));
+            result2.close();
+            System.out.println("a2");
+            String sql3 = "" +
+                    "SELECT  extract(month from birthday) as month" +
+                    "FROM employe " +
+                    "";
+            PreparedStatement statement3 = conn.prepareStatement(sql2);
+            ResultSet result3 = statement3.executeQuery();
+            _mounth=Integer.parseInt(result3.getString("month"));
+            result3.close();
+
+            String sql4 = "" +
+                    "SELECT  extract(year from birthday)  as year" +
+                    "FROM employe " +
+                    "";
+            PreparedStatement statement4 = conn.prepareStatement(sql2);
+            ResultSet result4= statement4.executeQuery();
+            _year=Integer.parseInt(result4.getString("year"));
+            result4.close();
+            employe.add( nrOfEmployee,new Employee(_name, _surname, LocalDate.of(_year, _mounth, _day), _gender, _idnp, _salary, _function));
+
         }
+
+
+
         catch (SQLException e){
             e.printStackTrace();
         }
+
+
+
 
     }
 
